@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
     const NUMBERS = '123456789';
 
-    const NUM_STAGES = 20;
+    const NUM_STAGES = 24;
 
     const button = document.querySelector('button');
     const answerForm = document.querySelector('#answerForm');
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const getTaskString = () => {
-        const bits = Math.ceil(stage / 5);
+        const bits = Math.ceil(stage / 3);
         const isLetters = populateIsLetters(bits); // trues for letters, falses for numbers
 
         let taskString = '';
