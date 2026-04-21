@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
     const NUMBERS = '123456789';
 
+    const NUM_STAGES = 20;
+
     const button = document.querySelector('button');
     const answerForm = document.querySelector('#answerForm');
     const answer = document.querySelector('#answer');
@@ -11,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const synth = window.speechSynthesis;
     let currentTaskString = '';
-
     let stage = 1;
+    let numCorrect = 0;
 
     const shuffleArray = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -70,11 +72,21 @@ document.addEventListener('DOMContentLoaded', () => {
             answerForm.hidden = false;
             answer.focus();
         });
-
-        stage += 1;
     };
 
     button.addEventListener('click', playStage);
+
+    const endGame = () => {
+        const percentCorrect = numCorrect / NUM_STAGES * 100;
+        alert('Game Over! You got ' + percentCorrect + '% correct.');
+
+        numCorrect = 0;
+        stage = 1;
+        button.textContent = 'Try Again!';
+        button.hidden = false;
+        answerForm.hidden = true;
+        infoText.hidden = true;
+    };
 
     answerForm.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -83,15 +95,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const answerList = [...answer.value.toLowerCase()]
             const taskStringList = currentTaskString.split(',').map(x => x.trim()).slice(0, -1).toSorted();
 
-            console.log(answerList);
-            console.log(taskStringList);
             if (arraysAreEqual(taskStringList, answerList)) {
-                console.log('success!');
+                numCorrect += 1;
             }
             infoText.hidden = false;
             answerForm.hidden = true;
             answer.value = '';
-            playStage();
+
+            if (stage < NUM_STAGES) {
+                stage += 1;
+                playStage();
+            } else {
+                endGame();
+            }
         }
     });
 });
