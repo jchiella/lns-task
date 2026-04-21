@@ -79,18 +79,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     answer.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
-            const answerList = [...answer.value.toLowerCase()]
-            const taskStringList = currentTaskString.split(',').map(x => x.trim()).slice(0, -1).toSorted();
+            if (answer.value.trim().length > 0) {
+                const answerList = [...answer.value.toLowerCase()]
+                const taskStringList = currentTaskString.split(',').map(x => x.trim()).slice(0, -1).toSorted();
 
-            console.log(answerList);
-            console.log(taskStringList);
-            if (arraysAreEqual(taskStringList, answerList)) {
-                console.log('success!');
+                console.log(answerList);
+                console.log(taskStringList);
+                if (arraysAreEqual(taskStringList, answerList)) {
+                    console.log('success!');
+                }
+                button.hidden = false;
+                infoText.hidden = true;
+                answer.hidden = true;
+                answer.value = '';
             }
-            button.hidden = false;
-            infoText.hidden = true;
-            answer.hidden = true;
-            answer.value = '';
         }
     });
 });
