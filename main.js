@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const synth = window.speechSynthesis;
     let currentTaskString = '';
-    let gameInProgress = false;
 
     let stage = 1;
 
@@ -56,13 +55,9 @@ document.addEventListener('DOMContentLoaded', () => {
         return taskString;
     };
 
-    button.addEventListener('click', () => {
+    const playStage = () => {
         button.hidden = true;
         infoText.hidden = false;
-
-        if (!gameInProgress) {
-            button.textContent = 'Play next';
-        }
 
         currentTaskString = getTaskString();
         console.log(currentTaskString);
@@ -73,10 +68,13 @@ document.addEventListener('DOMContentLoaded', () => {
         utterance.addEventListener('end', () => {
             infoText.hidden = true;
             answerForm.hidden = false;
+            answer.focus();
         });
 
         stage += 1;
-    });
+    };
+
+    button.addEventListener('click', playStage);
 
     answerForm.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -90,10 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (arraysAreEqual(taskStringList, answerList)) {
                 console.log('success!');
             }
-            button.hidden = false;
-            infoText.hidden = true;
+            infoText.hidden = false;
             answerForm.hidden = true;
             answer.value = '';
+            playStage();
         }
     });
 });
