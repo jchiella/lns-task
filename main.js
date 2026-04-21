@@ -1,8 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
     const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
     const NUMBERS = '123456789';
+
     const button = document.querySelector('button');
+    const answer = document.querySelector('#answer');
+    const infoText = document.querySelector('#infoText');
+    answer.hidden = true;
+    infoText.hidden = true;
+
     const synth = window.speechSynthesis;
+    let currentTaskString = '';
+    let gameInProgress = false;
 
     let stage = 1;
 
@@ -12,6 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
             [array[i], array[j]] = [array[j], array[i]];
         }
     }
+
+    const arraysAreEqual = (arr1, arr2) => arr1.length === arr2.length &&
+        arr1.every((val, index) => val === arr2[index]);
 
     const populateIsLetters = (bits) => {
         if (bits == 1) {
@@ -45,10 +56,41 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     button.addEventListener('click', () => {
-        const taskString = getTaskString();
-        console.log(taskString);
-        const utterance = new SpeechSynthesisUtterance(taskString);
+        button.hidden = true;
+        infoText.hidden = false;
+
+        if (!gameInProgress) {
+            button.textContent = 'Play next';
+        }
+
+        currentTaskString = getTaskString();
+        console.log(currentTaskString);
+        const utterance = new SpeechSynthesisUtterance(currentTaskString);
+        synth.speak(new SpeechSynthesisUtterance(''));
         synth.speak(utterance);
+
+        utterance.addEventListener('end', () => {
+            infoText.hidden = true;
+            answer.hidden = false;
+        });
+
         stage += 1;
+    });
+
+    answer.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            const answerList = [...answer.value.toLowerCase()]
+            const taskStringList = currentTaskString.split(',').map(x => x.trim()).slice(0, -1).toSorted();
+
+            console.log(answerList);
+            console.log(taskStringList);
+            if (arraysAreEqual(taskStringList, answerList)) {
+                console.log('success!');
+            }
+            button.hidden = false;
+            infoText.hidden = true;
+            answer.hidden = true;
+            answer.value = '';
+        }
     });
 });

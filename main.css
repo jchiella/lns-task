@@ -2,3 +2,8 @@ header,
 footer {
     text-align: center;
 }
+
+.container {
+    text-align: center;
+    max-width: 400px;
+}
