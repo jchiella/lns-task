@@ -115,7 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    button.addEventListener('click', playStage);
+    button.addEventListener('click', () => {
+        stagesInput.disabled = true;
+        playStage();
+    });
 
     const endGame = () => {
         const percentCorrect = numCorrect / NUM_STAGES * 100;
@@ -128,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         answerForm.hidden = true;
         infoText.hidden = true;
         progressBar.removeAttribute('value');
+        stagesInput.disabled = false;
     };
 
     answerForm.addEventListener('submit', (event) => {
