@@ -11,6 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const instructions = document.querySelector('#instructions');
     const instructionsBtn = document.querySelector('#instructionsBtn');
     const instructionsCloseBtn = document.querySelector('#instructionsCloseBtn');
+    const progressBar = document.querySelector('progress');
+
+    progressBar.max = NUM_STAGES;
 
     answerForm.hidden = true;
     infoText.hidden = true;
@@ -67,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const playStage = () => {
         button.hidden = true;
         infoText.hidden = false;
+        progressBar.value = stage;
 
         currentTaskString = getTaskString();
         console.log(currentTaskString);
@@ -93,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         button.hidden = false;
         answerForm.hidden = true;
         infoText.hidden = true;
+        progressBar.removeAttribute('value');
     };
 
     answerForm.addEventListener('submit', (event) => {
