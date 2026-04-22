@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const NUMBERS = '123456789';
 
     let NUM_STAGES = 24;
+    let VOICE_SPEED = 0.5;
 
     const button = document.querySelector('#startBtn');
     const answerForm = document.querySelector('#answerForm');
@@ -32,6 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
         NUM_STAGES = stagesInput.value;
         progressBar.max = NUM_STAGES;
     });
+
+    const speedLbl = document.querySelector('#settings-speedLbl');
+    const speedInput = document.querySelector('#settings-speedInput');
+    speedInput.addEventListener('input', () =>
+        speedLbl.textContent = `Voice speed: ${speedInput.value}%`
+    );
+    speedInput.addEventListener('change', () =>
+        VOICE_SPEED = speedInput.value / 100);
 
     const progressBar = document.querySelector('progress');
 
@@ -95,6 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentTaskString = getTaskString();
         console.log(currentTaskString);
         const utterance = new SpeechSynthesisUtterance(currentTaskString);
+        utterance.rate = VOICE_SPEED;
         synth.speak(new SpeechSynthesisUtterance(''));
         synth.speak(utterance);
 
