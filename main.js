@@ -4,10 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const NUM_STAGES = 24;
 
-    const button = document.querySelector('button');
+    const button = document.querySelector('#startBtn');
     const answerForm = document.querySelector('#answerForm');
     const answer = document.querySelector('#answer');
     const infoText = document.querySelector('#infoText');
+    const instructions = document.querySelector('#instructions');
+    const instructionsBtn = document.querySelector('#instructionsBtn');
+    const instructionsCloseBtn = document.querySelector('#instructionsCloseBtn');
+
     answerForm.hidden = true;
     infoText.hidden = true;
 
@@ -15,6 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentTaskString = '';
     let stage = 1;
     let numCorrect = 0;
+
+    instructionsBtn.addEventListener('click', () => instructions.open = true);
+    instructionsCloseBtn.addEventListener('click', () => instructions.open = false);
 
     const shuffleArray = (array) => {
         for (let i = array.length - 1; i > 0; i--) {

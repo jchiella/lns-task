@@ -11,11 +11,38 @@
 </head>
 
 <body>
-    <header>
-        <h1>LNS Task</h1>
-    </header>
+    <dialog id="instructions">
+        <article>
+            <header>
+                <button id="instructionsCloseBtn" aria-label="Close" rel="prev"></button>
+                <p>
+                    <strong>Instructions</strong>
+                </p>
+            </header>
+            <p>
+                This is a simple implementation of the letter-number sequencing (LNS) task commonly used in cognitive
+                assessments.
+            </p>
+            <ul>
+                <li>To play, ensure your audio is turned up, and press the button to begin.</li>
+                <li>Listen to the prompt, which will consist of a sequence of letters and numbers.</li>
+                <li>Enter the letters and numbers you hear into the text box, placing the numbers first in ascending
+                    order and then the letters after ordered from A - Z.</li>
+                <li><b>Example:</b> You hear "C, 7, A, 2"; you enter "27ac" and press [ENTER] or click "Submit."</li>
+                <li>After 24 rounds, the game will end and your score will be reported.</li>
+            </ul>
+        </article>
+    </dialog>
     <main class="container">
-        <button>Click to Start</button>
+        <nav>
+            <ul>
+                <li><strong>LNS Task</strong></li>
+            </ul>
+            <ul>
+                <li><a href="#" id="instructionsBtn">instructions</a></li>
+            </ul>
+        </nav>
+        <button id="startBtn">Click to Start</button>
         <h1 id="infoText">Listen...</h1>
         <form id="answerForm">
             <input id="answer" type="text">
