@@ -2,15 +2,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const LETTERS = 'abcdefghijklmnopqrstuvwxyz';
     const NUMBERS = '123456789';
 
-    const NUM_STAGES = 24;
+    let NUM_STAGES = 24;
 
     const button = document.querySelector('#startBtn');
     const answerForm = document.querySelector('#answerForm');
     const answer = document.querySelector('#answer');
     const infoText = document.querySelector('#infoText');
+
     const instructions = document.querySelector('#instructions');
     const instructionsBtn = document.querySelector('#instructionsBtn');
     const instructionsCloseBtn = document.querySelector('#instructionsCloseBtn');
+
+    instructionsBtn.addEventListener('click', () => instructions.open = true);
+    instructionsCloseBtn.addEventListener('click', () => instructions.open = false);
+
+    const settings = document.querySelector('#settings');
+    const settingsBtn = document.querySelector('#settingsBtn');
+    const settingsCloseBtn = document.querySelector('#settingsCloseBtn');
+
+    settingsBtn.addEventListener('click', () => settings.open = true);
+    settingsCloseBtn.addEventListener('click', () => settings.open = false);
+
+    const stagesLbl = document.querySelector('#settings-stagesLbl');
+    const stagesInput = document.querySelector('#settings-stagesInput');
+    stagesInput.addEventListener('input', () =>
+        stagesLbl.textContent = `Number of stages: ${stagesInput.value}`
+    );
+    stagesInput.addEventListener('change', () => {
+        NUM_STAGES = stagesInput.value;
+        progressBar.max = NUM_STAGES;
+    });
+
     const progressBar = document.querySelector('progress');
 
     progressBar.max = NUM_STAGES;
@@ -23,8 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let stage = 1;
     let numCorrect = 0;
 
-    instructionsBtn.addEventListener('click', () => instructions.open = true);
-    instructionsCloseBtn.addEventListener('click', () => instructions.open = false);
 
     const shuffleArray = (array) => {
         for (let i = array.length - 1; i > 0; i--) {

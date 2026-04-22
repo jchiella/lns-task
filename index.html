@@ -33,6 +33,22 @@
             </ul>
         </article>
     </dialog>
+
+    <dialog id="settings">
+        <article>
+            <header>
+                <button id="settingsCloseBtn" aria-label="Close" rel="prev"></button>
+                <p>
+                    <strong>Settings</strong>
+                </p>
+            </header>
+            <form>
+                <label id="settings-stagesLbl">Number of stages: 24</label>
+                <input id="settings-stagesInput" type="range" min="3" max="30" value="24">
+            </form>
+        </article>
+    </dialog>
+
     <main class="container">
         <nav>
             <ul>
@@ -40,6 +56,7 @@
             </ul>
             <ul>
                 <li><a href="#" id="instructionsBtn">instructions</a></li>
+                <li><a href="#" id="settingsBtn">settings</a></li>
             </ul>
         </nav>
 
